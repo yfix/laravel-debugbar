@@ -408,8 +408,7 @@ class LaravelDebugbar extends DebugBar
         
         $renderer = $this->getJavascriptRenderer();
         if($this->getStorage()){
-            $openHandlerUrl = $this->app['url']->route('debugbar.openhandler');
-            $renderer->setOpenHandlerUrl($openHandlerUrl);
+            $renderer->setServerHandlerUrl($this->app['url']->route('debugbar.serverhandler'));
         }
 
         if(method_exists($renderer, 'addAssets')){

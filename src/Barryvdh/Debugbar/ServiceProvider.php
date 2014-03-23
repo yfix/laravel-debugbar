@@ -39,17 +39,18 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
             });
         }
 
-        $this->app['router']->get('_debugbar/open', array('as' => 'debugbar.openhandler', function() use($app){
+        $this->app['router']->get('_debugbar/server', array('as' => 'debugbar.serverhandler', function() use($app){
 
+            /** @var LaravelDebugbar $debugbar */
             $debugbar = $app['debugbar'];
 
             if(!$debugbar->isEnabled()){
                 $app->abort('500', 'Debugbar is not enabled');
             }
 
-            $openHandler = new \DebugBar\OpenHandler($debugbar);
+            $serverHandler = $debugbar->createServerHandlerFrontController();
 
-            $data = $openHandler->handle(null, false, false);
+            $data = $serverHandler->handle(null, false, false);
             return \Response::make($data, 200, array(
                 'Content-Type'=> 'application/json'
             ));
