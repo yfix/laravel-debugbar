@@ -1,33 +1,12 @@
 <?php namespace Barryvdh\Debugbar\Controllers;
 
-use Illuminate\Foundation\Application;
-use Illuminate\Routing\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
-class AssetController extends Controller {
+class AssetController extends BaseController
+{
 
     /** @var int The TTL (1 year) */
     protected $ttl = 31536000;
-
-    /**
-     * The application instance.
-     *
-     * @var \Illuminate\Foundation\Application
-     */
-    protected $app;
-
-    /**
-     * The debugbar instance.
-     *
-     * @var \Barryvdh\Debugbar\LaravelDebugbar
-     */
-    protected $debugbar;
-
-    public function __construct(Application $app)
-    {
-        $this->app = $app;
-        $this->debugbar = $this->app['debugbar'];
-    }
 
     /**
      * Return the javascript for the Debugbar
@@ -36,13 +15,15 @@ class AssetController extends Controller {
      */
     public function js()
     {
-        $renderer = $this->debugbar->getJavascriptRenderer();
+        $renderer = $this->app['debugbar']->getJavascriptRenderer();
 
         $content = $renderer->dumpAssetsToString('js');
 
-        $response = new Response($content, 200, array(
+        $response = new Response(
+            $content, 200, array(
                 'Content-Type' => 'text/javascript',
-            ));
+            )
+        );
         $response->setTtl($this->ttl);
 
         return $response;
@@ -55,13 +36,15 @@ class AssetController extends Controller {
      */
     public function css()
     {
-        $renderer = $this->debugbar->getJavascriptRenderer();
+        $renderer = $this->app['debugbar']->getJavascriptRenderer();
 
         $content = $renderer->dumpAssetsToString('css');
 
-        $response = new Response($content, 200, array(
+        $response = new Response(
+            $content, 200, array(
                 'Content-Type' => 'text/css',
-            ));
+            )
+        );
         $response->setTtl($this->ttl);
 
         return $response;
