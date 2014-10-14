@@ -9,7 +9,7 @@ It bootstraps some Collectors to work with Laravel and implements a couple custo
 It is configured to display Redirects and (jQuery) Ajax Requests. (Shown in a dropdown)
 Read [the documentation](http://phpdebugbar.com/docs/) for more configuration options.
 
-![Screenshot](http://i.imgur.com/VmuNA4w.png)
+![Screenshot](https://cloud.githubusercontent.com/assets/973269/4270452/740c8c8c-3ccb-11e4-8d9a-5a9e64f19351.png)
 
 Note: Use the DebugBar only in development. It can slow the application down (because it has to gather data). So when experiencing slowness, try disabling some of the collectors.
 
@@ -39,9 +39,9 @@ It also provides a Facade interface for easy logging Messages, Exceptions and Ti
 
 ## Installation
 
-Require this package in your composer.json and run composer update (or run `composer require barryvdh/laravel-debugbar:1.x` directly):
+Require this package with composer:
 
-    "barryvdh/laravel-debugbar": "1.*"
+    composer require barryvdh/laravel-debugbar
 
 After updating composer, add the ServiceProvider to the providers array in app/config/app.php
 
@@ -57,7 +57,7 @@ The profiler is enabled by default, if you have app.debug=true. You can override
 You can also set in your config if you want to include/exclude the vendor files also (FontAwesome, Highlight.js and jQuery). If you already use them in your site, set it to false.
 You can also only display the js of css vendors, by setting it to 'js' or 'css'. (Highlight.js requires both css + js, so set to `true` for syntax highlighting)
 
-    $ php artisan config:publish barryvdh/laravel-debugbar
+    php artisan config:publish barryvdh/laravel-debugbar
 
 You can also disable/enable the loggers you want. You can also use the IoC container to add extra loggers. (`$app['debugbar']->addCollector(new MyDataCollector)`)
 
